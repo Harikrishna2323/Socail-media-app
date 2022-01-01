@@ -23,7 +23,7 @@ const Register = () => {
         password: password.current.value,
       };
       try {
-        const { data } = await axios.post("/auth/register", user);
+        const { data } = await axios.post("/api/auth/register", user);
         console.log(data);
         navigate("/login");
       } catch (err) {

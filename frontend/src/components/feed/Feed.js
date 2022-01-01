@@ -12,7 +12,7 @@ export default function Feed({ username }) {
 
   useEffect(() => {
     const getFeed = async () => {
-      const { data } = await axios.get(`/posts/timeline/${user._id}`);
+      const { data } = await axios.get(`/api/posts/timeline/${user._id}`);
       setPosts(data);
     };
     getFeed();

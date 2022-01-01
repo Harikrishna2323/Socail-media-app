@@ -52,7 +52,7 @@ const Messenger = () => {
   useEffect(() => {
     const getConv = async () => {
       try {
-        const { data } = await axios.get(`/conversations/${user._id}`);
+        const { data } = await axios.get(`/api/conversations/${user._id}`);
         setConv(data);
       } catch (err) {
         console.log(err);
@@ -64,7 +64,7 @@ const Messenger = () => {
   useEffect(() => {
     const getMessages = async () => {
       try {
-        const { data } = await axios.get(`/messages/${currentChat?._id}`);
+        const { data } = await axios.get(`/api/messages/${currentChat?._id}`);
         setMessages(data);
       } catch (err) {
         console.log(err);

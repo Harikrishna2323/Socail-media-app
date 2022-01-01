@@ -15,6 +15,8 @@ const messageRouter = require("./routes/messages");
 
 // app config
 const app = express();
+const server = require("http").Server(app);
+const io = require("socket.io")(server);
 const PORT = process.env.PORT || 4000;
 
 //database connection
@@ -27,6 +29,49 @@ mongoose
   )
   .then(() => console.log("Connected to DB."));
 
+//socket io
+let users = [];
+
+const addUser = (userId, socketId) => {
+  !users.some((user) => user.userId === userId) &&
+    users.push({ userId, socketId });
+};
+
+const removeUser = (socketId) => {
+  users = users.filter((user) => user.socketId !== socketId);
+};
+
+const getUser = (userId) => {
+  return users.find((user) => user.userId === userId);
+};
+
+io.on("connection", (socket) => {
+  //when ceonnect
+  console.log("a user connected.");
+
+  //take userId and socketId from user
+  socket.on("addUser", (userId) => {
+    addUser(userId, socket.id);
+    io.emit("getUsers", users);
+  });
+
+  //send and get message
+  socket.on("sendMessage", ({ senderId, receiverId, text }) => {
+    const user = getUser(receiverId);
+    io.to(user.socketId).emit("getMessage", {
+      senderId,
+      text,
+    });
+  });
+
+  //when disconnect
+  socket.on("disconnect", () => {
+    console.log("a user disconnected!");
+    removeUser(socket.id);
+    io.emit("getUsers", users);
+  });
+});
+
 //middlewares
 app.use(express.json());
 app.use(helmet());
@@ -38,19 +83,17 @@ app.use("/api/posts", postRouter);
 app.use("/api/conversations", convRouter);
 app.use("/api/messages", messageRouter);
 
-if (process.env.NODE_ENV === "PRODUCTION") {
-  app.use(express.static(path.join(__dirname, "../frontend/build")));
+app.use(express.static(path.join(__dirname, "../frontend/build")));
 
-  app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "../frontend/build/index.html"));
-  });
-}
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "../frontend/build/index.html"));
+});
 
 // app.get("/", (req, res) => {
 //   res.status(200).send("Welcome to home page.");
 // });
 
-app.listen(PORT, () =>
+server.listen(PORT, () =>
   console.log(
     "Server started in port: " + PORT + "in " + process.env.NODE_ENV + " mode"
   )

@@ -12,6 +12,7 @@ const authRouter = require("./routes/auth");
 const postRouter = require("./routes/post");
 const convRouter = require("./routes/conversation");
 const messageRouter = require("./routes/messages");
+const { env } = require("process");
 
 // app config
 const app = express();
@@ -19,10 +20,11 @@ const PORT = process.env.PORT || 4000;
 
 //database connection
 mongoose
-  .connect(process.env.MONGODB_URL, {
+  .connect(`${process.env.DB_URI}`, {
     useNewUrlParser: true,
+    useUnifiedTopology: true,
   })
-  .then(() => console.log("COnnected to DB."));
+  .then(() => console.log("Connected to DB."));
 
 //middlewares
 app.use(express.json());
@@ -47,4 +49,8 @@ if (process.env.NODE_ENV === "PRODUCTION") {
 //   res.status(200).send("Welcome to home page.");
 // });
 
-app.listen(PORT, () => console.log("Server started in port: " + PORT));
+app.listen(PORT, () =>
+  console.log(
+    "Server started in port: " + PORT + "in " + process.env.NODE_ENV + " mode"
+  )
+);

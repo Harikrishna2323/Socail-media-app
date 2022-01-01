@@ -8,17 +8,21 @@ import { AuthContext } from "../../context/AuthContext";
 import axios from "axios";
 
 const Home = () => {
-  const [users, setUsers] = useState([]);
+  const [friends, setFriends] = useState([]);
   const { user: currentUser } = useContext(AuthContext);
 
   useEffect(() => {
-    const getUsers = async () => {
-      const { data } = await axios.get(`/users/friends/${currentUser._id}`);
-      setUsers(data);
+    const getFriends = async () => {
+      try {
+        const { data } = await axios.get(`/users/friends/${currentUser._id}`);
+        setFriends(data);
+      } catch (err) {
+        console.log(err);
+      }
     };
-    getUsers();
-  }, []);
-  console.log("usersHome:", users);
+    getFriends();
+  }, [currentUser]);
+  console.log("usersHome:", friends);
   const username = currentUser.username;
   console.log(username);
   return (
@@ -27,7 +31,7 @@ const Home = () => {
       <div className="homeContainer">
         <Sidebar />
         <Feed username={username} />
-        <Rightbar />
+        <Rightbar users={friends} />
       </div>
     </div>
   );

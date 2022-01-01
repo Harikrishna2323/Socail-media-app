@@ -1,5 +1,4 @@
-const server = require("../backend/server");
-const io = require("socket.io")(server, {
+const io = require("socket.io")(process.env.PORT, {
   cors: {
     origin: `https://socialize-hkb.herokuapp.com`,
   },

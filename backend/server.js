@@ -5,6 +5,7 @@ dotenv.config();
 const morgan = require("morgan");
 const helmet = require("helmet");
 const path = require("path");
+const cors = require("cors");
 
 //
 const userRouter = require("./routes/users");
@@ -17,7 +18,14 @@ const messageRouter = require("./routes/messages");
 const app = express();
 const server = require("http").Server(app);
 const io = require("socket.io")(server);
+
+io.configure(function () {
+  io.set("transports", ["xhr-polling"]);
+  io.set("polling duration", 5);
+});
+
 const PORT = process.env.PORT || 4000;
+app.use(cors());
 
 //database connection
 mongoose

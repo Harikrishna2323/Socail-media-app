@@ -43,5 +43,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:4200/api"
+  "proxy": "https://socialize-hkb.herokuapp.com/api"
 }

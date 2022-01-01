@@ -13,7 +13,7 @@
 /coverage
 
 # production
-/frontend/build
+
 
 # misc
 .env

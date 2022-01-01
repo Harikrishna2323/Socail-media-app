@@ -1,4 +1,4 @@
-const io = require("socket.io")(process.env.PORT, {
+const io = require("socket.io")(8900, {
   cors: {
     origin: `https://socialize-hkb.herokuapp.com`,
   },

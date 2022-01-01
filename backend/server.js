@@ -43,8 +43,8 @@ if (process.env.NODE_ENV === "PRODUCTION") {
   });
 }
 
-app.get("/", (req, res) => {
-  res.status(200).send("Welcome to home page.");
-});
+// app.get("/", (req, res) => {
+//   res.status(200).send("Welcome to home page.");
+// });
 
 app.listen(PORT, () => console.log("Server started in port: " + PORT));

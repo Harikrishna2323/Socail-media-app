@@ -1,6 +1,7 @@
-const io = require("socket.io")(8900, {
+const server = require("../backend/server");
+const io = require("socket.io")(server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: `https://socialize-hkb.herokuapp.com`,
   },
 });
 

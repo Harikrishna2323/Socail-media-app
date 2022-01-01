@@ -16,7 +16,7 @@ const Home = () => {
       <div className="homeContainer">
         <Sidebar />
         <Feed username={username} />
-        {/* <Rightbar /> */}
+        <Rightbar />
       </div>
     </div>
   );

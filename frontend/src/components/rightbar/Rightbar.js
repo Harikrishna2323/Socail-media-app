@@ -24,7 +24,7 @@ export default function Rightbar({ user }) {
   useEffect(() => {
     const getFriends = async () => {
       try {
-        const { data } = await axios.get(`/users/friends/${currentUser._id}`);
+        const { data } = await axios.get(`/users/friends/${user._id}`);
         setFriends(data);
       } catch (err) {
         console.log(err);

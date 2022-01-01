@@ -16,7 +16,7 @@ const messageRouter = require("./routes/messages");
 
 // app config
 const app = express();
-const server = require("http").Server(app);
+export default server = require("http").Server(app);
 const io = require("socket.io")(server);
 
 io.configure(function () {

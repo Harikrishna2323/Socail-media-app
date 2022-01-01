@@ -12,7 +12,6 @@ const authRouter = require("./routes/auth");
 const postRouter = require("./routes/post");
 const convRouter = require("./routes/conversation");
 const messageRouter = require("./routes/messages");
-const { env } = require("process");
 
 // app config
 const app = express();
@@ -20,10 +19,12 @@ const PORT = process.env.PORT || 4000;
 
 //database connection
 mongoose
-  .connect(`${process.env.DB_URI}`, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(
+    `mongodb+srv://hari:hari1234@socialmedia.smavb.mongodb.net/socialMedia?retryWrites=true&w=majority`,
+    {
+      useNewUrlParser: true,
+    }
+  )
   .then(() => console.log("Connected to DB."));
 
 //middlewares
@@ -38,7 +39,7 @@ app.use("/api/conversations", convRouter);
 app.use("/api/messages", messageRouter);
 
 if (process.env.NODE_ENV === "PRODUCTION") {
-  app.userRouter(express.static(path.join(__dirname, "../frontend/build")));
+  app.use(express.static(path.join(__dirname, "../frontend/build")));
 
   app.get("*", (req, res) => {
     res.sendFile(path.resolve(__dirname, "../frontend/build/index.html"));

@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./home.css";
 import Topbar from "../../components/topbar/Topbar";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Rightbar from "../../components/rightbar/Rightbar";
 import Feed from "../../components/feed/Feed";
+import { AuthContext } from "../../context/AuthContext";
 
 const Home = () => {
+  const { user: currentUser } = useContext(AuthContext);
   return (
     <div>
       <Topbar />

@@ -8,12 +8,14 @@ import { AuthContext } from "../../context/AuthContext";
 
 const Home = () => {
   const { user: currentUser } = useContext(AuthContext);
+  console.log(username);
+  const username = currentUser.username;
   return (
     <div>
       <Topbar />
       <div className="homeContainer">
         <Sidebar />
-        <Feed />
+        <Feed username={username} />
         {/* <Rightbar /> */}
       </div>
     </div>

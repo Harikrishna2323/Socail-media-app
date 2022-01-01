@@ -30,8 +30,8 @@ const Home = () => {
       <Topbar />
       <div className="homeContainer">
         <Sidebar />
-        <Feed username={username} />
-        <Rightbar users={friends} />
+        <Feed />
+        {/* <Rightbar /> */}
       </div>
     </div>
   );

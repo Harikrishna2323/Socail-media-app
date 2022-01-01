@@ -17,7 +17,7 @@ const Post = ({ post }) => {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const { data } = await axios.get(`/users?userId=${post.userId}`);
+      const { data } = await axios.get(`/api/users?userId=${post.userId}`);
       setUser(data);
     };
     fetchUser(0);
@@ -25,7 +25,7 @@ const Post = ({ post }) => {
 
   const likeHandler = async () => {
     try {
-      const { data } = await axios.patch(`posts/${post._id}/like`, {
+      const { data } = await axios.patch(`/api/posts/${post._id}/like`, {
         userId: currentUser._id,
       });
       console.log("liked the post");

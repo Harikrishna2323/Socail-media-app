@@ -7,12 +7,20 @@ import { Link } from "react-router-dom";
 import { Add, Remove } from "@material-ui/icons";
 
 export default function Rightbar() {
+  const [user, setUser] = useState([]);
   const [friends, setFriends] = useState([]);
   const { user: currentUser, dispatch } = useContext(AuthContext);
   const [followed, setFollowed] = useState(
     currentUser.following.includes(currentUser?.id)
   );
 
+  // useEffect(() => {
+  //   const getUsers = async () => {
+  //     const { data } = await axios.get(`/users/friends/${currentUser._id}`);
+  //     setUser(data);
+  //   };
+  //   getUsers();
+  // }, []);
   useEffect(() => {
     const getFriends = async () => {
       try {
@@ -23,7 +31,7 @@ export default function Rightbar() {
       }
     };
     getFriends();
-  }, [user]);
+  }, [currentUser]);
 
   console.log("users:", friends);
   console.log("currentUser:", currentUser);
@@ -56,7 +64,7 @@ export default function Rightbar() {
   };
 
   const ProfileRightbar = () => {
-    console.log("user:", user);
+    console.log("user:", friends);
     console.log("currentUser:", currentUser);
     const clickHandler = async () => {
       try {

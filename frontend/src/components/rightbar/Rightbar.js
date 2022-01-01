@@ -1,5 +1,4 @@
 import "./rightbar.css";
-import { Users } from "../../dummyData";
 import Online from "../online/Online";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
@@ -7,24 +6,17 @@ import { AuthContext } from "../../context/AuthContext";
 import { Link } from "react-router-dom";
 import { Add, Remove } from "@material-ui/icons";
 
-export default function Rightbar({ user }) {
+export default function Rightbar() {
   const [friends, setFriends] = useState([]);
   const { user: currentUser, dispatch } = useContext(AuthContext);
   const [followed, setFollowed] = useState(
-    currentUser.following.includes(user?.id)
+    currentUser.following.includes(currentUser?.id)
   );
-
-  console.log("user:", user);
-  console.log("currentUser:", currentUser);
-
-  useEffect(() => {
-    setFollowed(currentUser.following.includes(user?.id));
-  }, [currentUser, user]);
 
   useEffect(() => {
     const getFriends = async () => {
       try {
-        const { data } = await axios.get(`/users/friends/${user._id}`);
+        const { data } = await axios.get(`/users/friends/${currentUser._id}`);
         setFriends(data);
       } catch (err) {
         console.log(err);
@@ -32,6 +24,13 @@ export default function Rightbar({ user }) {
     };
     getFriends();
   }, [user]);
+
+  console.log("users:", friends);
+  console.log("currentUser:", currentUser);
+
+  useEffect(() => {
+    setFollowed(currentUser.following.includes(user?.id));
+  }, [currentUser, user]);
 
   const HomeRightbar = () => {
     return (

@@ -16,13 +16,6 @@ const messageRouter = require("./routes/messages");
 
 // app config
 const app = express();
-export default server = require("http").Server(app);
-const io = require("socket.io")(server);
-
-io.configure(function () {
-  io.set("transports", ["xhr-polling"]);
-  io.set("polling duration", 5);
-});
 
 const PORT = process.env.PORT || 4000;
 app.use(cors());
@@ -60,7 +53,7 @@ app.get("*", (req, res) => {
 //   res.status(200).send("Welcome to home page.");
 // });
 
-server.listen(PORT, () =>
+app.listen(PORT, () =>
   console.log(
     "Server started in port: " + PORT + "in " + process.env.NODE_ENV + " mode"
   )

@@ -4,6 +4,11 @@ const io = require("socket.io")(8900, {
   },
 });
 
+io.configure(function () {
+  io.set("transports", ["xhr-polling"]);
+  io.set("polling duration", 5);
+});
+
 let users = [];
 
 const addUser = (userId, socketId) => {

@@ -19,3 +19,8 @@ export const unfollow = (userId) => ({
   type: "UNFOLLOW",
   payload: userId,
 });
+
+export const logoutUser = () => {
+  localStorage.removeItem("user");
+  window.location.href = "/login";
+};

@@ -3,9 +3,11 @@ import { Search, Person, Chat, Notifications } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
+import { Dropdown } from "react-bootstrap";
+import { logoutUser } from "../../context/AuthActions";
 
 const Topbar = () => {
-  const { user } = useContext(AuthContext);
+  const { user: currentUser, dispatch } = useContext(AuthContext);
   return (
     <div className="topbarContainer">
       <div className="topbarLeft">
@@ -45,17 +47,48 @@ const Topbar = () => {
             <span className="topbarIconBadge">1</span>
           </div>
         </div>
-        <Link to={`/profile/${user.username}`}>
-          <img
-            src={
-              user.profilePic
-                ? user.profilePic
-                : "https://images.squarespace-cdn.com/content/v1/54b7b93ce4b0a3e130d5d232/1519987020970-8IQ7F6Z61LLBCX85A65S/icon.png?format=1000w"
-            }
-            alt="somebody"
-            className="topbarImg"
-          />
-        </Link>
+        {currentUser ? (
+          <Dropdown className="dropdown ml-5">
+            <Dropdown.Toggle
+              style={{ color: "black" }}
+              type="button"
+              id="dropdown-basic"
+            >
+              {currentUser.name}
+              <img
+                src={
+                  currentUser.profilePic
+                    ? currentUser.profilePic
+                    : "https://images.squarespace-cdn.com/content/v1/54b7b93ce4b0a3e130d5d232/1519987020970-8IQ7F6Z61LLBCX85A65S/icon.png?format=1000w"
+                }
+                alt="somebody"
+                className="topbarImg"
+              />
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              <Dropdown.Item>
+                <Link to={`/profile/${currentUser.username}`}>
+                  <li>Profile</li>
+                </Link>
+              </Dropdown.Item>
+
+              <Dropdown.Item
+                className="dropdown-item"
+                onClick={() => {
+                  dispatch(logoutUser());
+                }}
+              >
+                <li>Logout</li>
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+        ) : (
+          <li className="nav-item">
+            <a className="nav-link" href="/login">
+              Login
+            </a>
+          </li>
+        )}
       </div>
     </div>
   );

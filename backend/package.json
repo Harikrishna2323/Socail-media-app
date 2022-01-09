@@ -10,7 +10,7 @@
     "morgan": "^1.10.0",
     "nodemon": "^2.0.15",
     "path": "^0.12.7",
-    "socket.io": "^4.4.0"
+    "socket.io": "^0.9.19"
   },
   "name": "backend",
   "version": "1.0.0",

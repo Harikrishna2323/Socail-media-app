@@ -31,7 +31,7 @@ const Messenger = () => {
         createdAt: Date.now(),
       });
     });
-  }, []);
+  }, [messages]);
 
   useEffect(() => {
     arrivalMessage &&
@@ -73,9 +73,9 @@ const Messenger = () => {
     getMessages();
   }, [currentChat]);
 
-  useEffect(() => {
-    scrollRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+  // useEffect(() => {
+  //   scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+  // }, [messages]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -96,16 +96,21 @@ const Messenger = () => {
     });
 
     try {
-      const { data } = await axios.post(`/messages`, message);
-      setMessages([...messages, message]);
+      const { data } = await axios.post(`/api/messages`, message);
+      setMessages([...messages, data]);
       setNewMessage("");
     } catch (err) {
       console.log(err);
     }
   };
 
+  useEffect(() => {
+    scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
   return (
     <>
+      <Topbar />
       <div className="messenger">
         <div className="chatMenu">
           <div className="chatMenuWrapper">

@@ -4,6 +4,7 @@ import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { format } from "timeago.js";
 import { AuthContext } from "../../context/AuthContext";
+import { Link } from "react-router-dom";
 
 const Post = ({ post }) => {
   const [like, setLike] = useState(post.likes.length);
@@ -21,7 +22,7 @@ const Post = ({ post }) => {
       setUser(data);
     };
     fetchUser(0);
-  }, [post.userId, post.likes]);
+  }, [post.userId, post.likes, like]);
 
   const likeHandler = async () => {
     try {
@@ -74,9 +75,7 @@ const Post = ({ post }) => {
               onClick={likeHandler}
               alt=""
             />
-            <span className="postLikeCounter">
-              {post.likes.length} people like it
-            </span>
+            <span className="postLikeCounter">{like} people like it</span>
           </div>
           <div className="postBottomRight">
             <span className="postCommentText">{post.comment} comments</span>

@@ -1,6 +1,8 @@
 const express = require("express");
+const app = express();
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
+
 dotenv.config();
 const morgan = require("morgan");
 const helmet = require("helmet");
@@ -15,7 +17,6 @@ const convRouter = require("./routes/conversation");
 const messageRouter = require("./routes/messages");
 
 // app config
-const app = express();
 
 const PORT = process.env.PORT || 4000;
 app.use(cors());

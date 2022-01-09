@@ -9,7 +9,9 @@ const Topbar = () => {
   return (
     <div className="topbarContainer">
       <div className="topbarLeft">
-        <span className="logo">Social App</span>
+        <Link to="/">
+          <span className="logo">Social App</span>
+        </Link>
       </div>
       <div className="topbarCenter">
         <div className="searchbar">

@@ -1,12 +1,7 @@
 const io = require("socket.io")(8900, {
   cors: {
-    origin: `http://localhost:8900`,
+    origin: "http://localhost:3000",
   },
-});
-
-io.configure(function () {
-  io.set("transports", ["xhr-polling"]);
-  io.set("polling duration", 5);
 });
 
 let users = [];

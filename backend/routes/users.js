@@ -8,6 +8,8 @@ router.get("/", userController.getOneUser);
 
 router.get("/friends/:userId", userController.getFriends);
 
+// router.get("/name/:username", userController.getByName);
+
 router
   .route("/:id")
   .patch(verify, userController.updateUser)

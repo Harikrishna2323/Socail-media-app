@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from "react";
 import "./topbar.css";
 import { Search, Person, Chat, Notifications } from "@material-ui/icons";
 import { Link } from "react-router-dom";
@@ -5,9 +6,21 @@ import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { Dropdown } from "react-bootstrap";
 import { logoutUser } from "../../context/AuthActions";
+import axios from "axios";
 
 const Topbar = () => {
   const { user: currentUser, dispatch } = useContext(AuthContext);
+  const [user, setUser] = useState([]);
+
+  const searchResult = async () => {
+    let user;
+    const getUser = async () => {
+      user = await axios.get("");
+    };
+    const { data } = await axios.get("/api/users/61ca32697cce30426330b4ed");
+  };
+  searchResult();
+
   return (
     <div className="topbarContainer">
       <div className="topbarLeft">
@@ -18,9 +31,11 @@ const Topbar = () => {
       <div className="topbarCenter">
         <div className="searchbar">
           <Search className="searchIcon" />
+
           <input
             placeholder="Search for friend, post or video"
             className="searchInput"
+            onChange={(e) => setUser(e.target.value)}
           />
         </div>
       </div>

@@ -15,7 +15,7 @@ exports.getOneUser = async (req, res, next) => {
       ? await User.findById(userId)
       : await User.findOne({ username });
     const { password, updatedAt, ...others } = user._doc;
-    res.status(200).json(others);
+    res.status(200).json(user);
   } catch (err) {
     res.status(400).send(err);
   }
@@ -141,4 +141,9 @@ exports.unfollowUser = async (req, res) => {
   } else {
     res.status(403).json("you cant unfollow yourself");
   }
+};
+
+//GET BY NAME
+exports.getByName = async (req, res) => {
+  const { username } = req.params;
 };
